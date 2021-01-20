@@ -19,9 +19,7 @@ class Csv:
         with open(self.__file_path) as csvfile:
             spamreader = csv.reader(csvfile)
             for row in spamreader:
-                print(row[0])
-                print(time.mktime(datetime.strptime('01/01/2020', "%d/%m/%Y").timetuple()))
-                if row[0] >= str(datetime.timestamp(2012, 1, 1)) and row[0] <= str(datetime.timestamp()):
+                if row[0] >= str(time.mktime(datetime.datetime.strptime('2012-01-01', "%Y-%m-%d").timetuple())) and row[0] <= str(time.mktime(datetime.datetime.strptime('2020-01-01', "%Y-%m-%d").timetuple())):
                     if 'NaN' not in row:
                         open_price.append(row[1])
                         close_price.append(row[2])
