@@ -1,3 +1,4 @@
+import os
 import csv
 import time
 import datetime
@@ -22,7 +23,7 @@ class Csv:
                 print(time.mktime(datetime.strptime('01/01/2020', "%d/%m/%Y").timetuple()))
                 if row[0] >= str(datetime.timestamp(2012, 1, 1)) and row[0] <= str(datetime.timestamp()):
                     if 'NaN' not in row:
-                        open_price.append(row[1])
+                        open_price.append(row[1])git
                         close_price.append(row[2])
                         min_value.append(row[3])
                         max_value.append(row[4])
@@ -55,9 +56,9 @@ class Indicador:
     def calculate_simple_moving_average(self):
         i = 0
         moving_averages = []
-        while i < len(numbers) - window_size + 1:
-            this_window = numbers[i : i + window_size]
-            window_average = sum(this_window) / window_size
+        while i < len(numbers) - self.numero_periodos + 1:
+            this_window = numbers[i : i + self.numero_periodos]
+            window_average = sum(this_window) / self.numero_periodos
             moving_averages.append(window_average)
             i += 1
 
