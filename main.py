@@ -1,5 +1,6 @@
 import csv
-from datetime import datetime
+import time
+import datetime
 
 class Csv:
 
@@ -12,12 +13,14 @@ class Csv:
         close_price = []
         open_price = []
         min_value = []
-        max_price = []
-
+        max_value = []
+        
         with open(self.__file_path) as csvfile:
             spamreader = csv.reader(csvfile)
             for row in spamreader:
-                if datetime.fromtimestamp(row[0][:9]) >= '2012-01-01' and datetime.fromtimestamp(row[0][:9]) <= '2018-01-01':
+                print(row[0])
+                print(time.mktime(datetime.strptime('01/01/2020', "%d/%m/%Y").timetuple()))
+                if row[0] >= str(datetime.timestamp(2012, 1, 1)) and row[0] <= str(datetime.timestamp()):
                     if 'NaN' not in row:
                         open_price.append(row[1])
                         close_price.append(row[2])
@@ -25,15 +28,13 @@ class Csv:
                         max_value.append(row[4])
                         #print(', '.join(row))
 
-        return open_price, close_price
-
-    def transform_timestamp_to_data(self):
-        pass
+        return open_price, close_price, min_value, max_value
 
 class Candle:
     
-    def __init__(self, period, open_value, close_value, max_value, min_value):
-        self.period = period
+    def __init__(self, date, frequency, open_value, close_value, max_value, min_value):
+        self.date = date
+        self.frequency = frequency
         self.open_value = open_value
         self.close_value = close_value
         self.max_value = max_value
@@ -42,6 +43,9 @@ class Candle:
     def draw_candle_graph(self):
         pass
 
+    def get_candle(self):
+        return(f'O preço de abertura do candle foi {self.open_value}, o preço de fechamento do candle foi {self.close_value}')
+
 class Indicador:
 
     def __init__(self, numero_periodos, desvio_padrao=0):
@@ -49,14 +53,21 @@ class Indicador:
         self.desvio_padrao = desvio_padrao
     
     def calculate_simple_moving_average(self):
-        pass
+        i = 0
+        moving_averages = []
+        while i < len(numbers) - window_size + 1:
+            this_window = numbers[i : i + window_size]
+            window_average = sum(this_window) / window_size
+            moving_averages.append(window_average)
+            i += 1
 
 def main():
     arquivo_csv = Csv('bitstamp.csv')
 
-    open_price, close_price = arquivo_csv.extract_csv_data()
+    open_price, close_price, min_value, max_value = arquivo_csv.extract_csv_data()
 
-    candles = Candle(open_price, close_price)
+    candles = Candle(1255448, 5, open_price, close_price, min_value, max_value)
+    print(candles.get_candle())
 
 if __name__ == '__main__':
     main()
