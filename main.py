@@ -23,7 +23,7 @@ class Csv:
                 print(time.mktime(datetime.strptime('01/01/2020', "%d/%m/%Y").timetuple()))
                 if row[0] >= str(datetime.timestamp(2012, 1, 1)) and row[0] <= str(datetime.timestamp()):
                     if 'NaN' not in row:
-                        open_price.append(row[1])git
+                        open_price.append(row[1])
                         close_price.append(row[2])
                         min_value.append(row[3])
                         max_value.append(row[4])
